@@ -1,0 +1,32 @@
+# This file specifies your Python application's runtime configuration
+# including URL routing, versions, static file uploads, etc. See
+# https://developers.google.com/appengine/docs/python/config/appconfig
+# for details.
+
+# using cloud.google.com/console use the "project id" for your application
+# id.
+runtime: python27
+api_version: 1
+threadsafe: yes
+
+# The Python SDK includes a number of built-in handlers for common application functions.
+# The builtins directive allows you to include specific handlers in app.yaml.
+# https://cloud.google.com/appengine/docs/standard/python/config/appref#builtins
+builtins:
+  # https://cloud.google.com/appengine/articles/deferred
+- deferred: on
+
+# Handlers define how to route requests to your application.
+handlers:
+
+# Deferred function calls will be added to a background task queue via this route
+- url: /_ah/queue/deferred
+  script: google.appengine.ext.deferred.deferred.application
+  login: admin
+
+# This handler tells app engine how to route requests to a WSGI application.
+# The script value is in the format <path.to.module>.<wsgi_application>
+# where <wsgi_application> is a WSGI application object.
+- url: .*  # This regex directs all routes to main.app
+  script: main.app
+  secure: always
