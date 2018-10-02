@@ -3,8 +3,6 @@ Easily accessible environment variables on Google App Engine, stored in Cloud Da
 
 """
 # pylint: disable=C0413, C0411
-from .gae_lib_config import load_google_appengine_package
-load_google_appengine_package()  # add the google.appengine to path, so that we can import it
 
 import os
 
@@ -115,16 +113,14 @@ def __set_value_for_name_in_datastore(name, value):
 
 
 
+def init():
 # Initialize the underlying datastore Model, GaeEnvSettings
 
 # The Datastore Viewer does not list models for which no entity has been registered.
 # By initialising, we create a dummy entity, so that the model becomes visible
 # in the Datastore Viewer.
 # This way, users can easily add values for names in the Developers Console.
-try:
-    get(INIT_KEY)
-except ValueNotSetError:
-    pass
-except RuntimeError as e:
-    print 'Could not initialise GaeEnvSettings model'
-    print e
+    try:
+        get(INIT_KEY)
+    except ValueNotSetError:
+        pass
