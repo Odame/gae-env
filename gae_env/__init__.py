@@ -114,15 +114,17 @@ def __set_value_for_name_in_datastore(name, value):
         raise RuntimeError("'gae_env' can only be used in the context of a Google AppEngine app")
 
 
-def init():
-    """ Initialize the underlying datastore Model, GaeEnvSettings
 
-    The Datastore Viewer does not list models for which no entity has been registered.
-    By initialising, we create a dummy entity, so that the model becomes visible
-    in the Datastore Viewer.
-    This way, users can easily add values for names in the Developers Console.
-    """
-    try:
-        get(INIT_KEY)
-    except ValueNotSetError:
-        pass
+# Initialize the underlying datastore Model, GaeEnvSettings
+
+# The Datastore Viewer does not list models for which no entity has been registered.
+# By initialising, we create a dummy entity, so that the model becomes visible
+# in the Datastore Viewer.
+# This way, users can easily add values for names in the Developers Console.
+try:
+    get(INIT_KEY)
+except ValueNotSetError:
+    pass
+except RuntimeError as e:
+    print 'Could not initialise GaeEnvSettings model'
+    print e
