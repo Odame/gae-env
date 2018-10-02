@@ -8,7 +8,7 @@ load_google_appengine_package() # add the google.appengine to path, so that we c
 
 import os
 
-
+from google.appengine.api.datastore_errors import BadArgumentError
 from .utils import run_in_namespace
 from .models import GaeEnvSettings
 from .constants import INIT_KEY, NOT_SET_VALUE, DEFAULT_GAE_NAMESPACE
@@ -78,13 +78,19 @@ def set_value(name, value, gae_namespace=DEFAULT_GAE_NAMESPACE):
 
 def __get_value_from_datastore(name):
     # type: (str) -> str
-    """ Get the value for a name from Cloud Datastore"""
-    setting = GaeEnvSettings.query(
-        GaeEnvSettings.name == str(name)).get()  # type: GaeEnvSettings
-    if not setting:
-        return None
-    return setting.value  # type: str
-
+    """ Get the value for a name from Cloud Datastore
+    
+    Raises:
+        RuntimeError -- gae_env can only be used within the context of a Google AppEngine app
+    """
+    try:
+        setting = GaeEnvSettings.query(
+            GaeEnvSettings.name == str(name)).get()  # type: GaeEnvSettings
+        if not setting:
+            return None
+        return setting.value  # type: str
+    except BadArgumentError:
+        raise RuntimeError("'gae_env' can only be used in the context of a Google AppEngine app")
 
 def __get_value_from_system_env(name):
     """Get the value for a name from system environment variables"""
@@ -92,13 +98,20 @@ def __get_value_from_system_env(name):
 
 
 def __set_value_for_name_in_datastore(name, value):
-    """ Set value for a name/key in Cloud Datastore """
-    setting = GaeEnvSettings.query(
-        GaeEnvSettings.name == str(name)).get()  # type: GaeEnvSettings
-    if setting is None:
-        setting = GaeEnvSettings(name=str(name))
-    setting.value = str(value)
-    setting.put()
+    """ Set value for a name/key in Cloud Datastore
+
+    Raises:
+        RuntimeError -- gae_env can only be used within the context of a Google AppEngine app
+    """
+    try:
+        setting = GaeEnvSettings.query(
+            GaeEnvSettings.name == str(name)).get()  # type: GaeEnvSettings
+        if setting is None:
+            setting = GaeEnvSettings(name=str(name))
+        setting.value = str(value)
+        setting.put()
+    except BadArgumentError:
+        raise RuntimeError("'gae_env' can only be used in the context of a Google AppEngine app")
 
 
 def init():
