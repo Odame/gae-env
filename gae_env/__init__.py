@@ -4,7 +4,7 @@ Easily accessible environment variables on Google App Engine, stored in Cloud Da
 """
 # pylint: disable=C0413, C0411
 from .gae_lib_config import load_google_appengine_package
-load_google_appengine_package() # add the google.appengine to path, so that we can import it
+load_google_appengine_package()  # add the google.appengine to path, so that we can import it
 
 import os
 
@@ -13,8 +13,6 @@ from .utils import run_in_namespace
 from .models import GaeEnvSettings
 from .constants import INIT_KEY, NOT_SET_VALUE, DEFAULT_GAE_NAMESPACE
 from .errors import ValueNotSetError
-
-
 
 
 __all__ = ['get', 'set_value', 'ValueNotSetError']
@@ -57,15 +55,16 @@ def get(
         run_in_namespace(__get_value_from_datastore, gae_namespace, name=name)
 
     if value is None:
-        set_value(name, NOT_SET_VALUE) # initialise it to a dummy value in Cloud Datastore
+        set_value(name, NOT_SET_VALUE)  # initialise it to a dummy value in Cloud Datastore
         value = NOT_SET_VALUE
 
     if raise_value_not_set_error and value == NOT_SET_VALUE:
         raise ValueNotSetError(key=name)
     elif value == NOT_SET_VALUE:
-        return None # return None, if no value had been set
+        return None  # return None, if no value had been set
     else:
         return converter_class(value)
+
 
 def set_value(name, value, gae_namespace=DEFAULT_GAE_NAMESPACE):
     # type: (str, str) -> None
@@ -79,7 +78,7 @@ def set_value(name, value, gae_namespace=DEFAULT_GAE_NAMESPACE):
 def __get_value_from_datastore(name):
     # type: (str) -> str
     """ Get the value for a name from Cloud Datastore
-    
+
     Raises:
         RuntimeError -- gae_env can only be used within the context of a Google AppEngine app
     """
@@ -91,6 +90,7 @@ def __get_value_from_datastore(name):
         return setting.value  # type: str
     except BadArgumentError:
         raise RuntimeError("'gae_env' can only be used in the context of a Google AppEngine app")
+
 
 def __get_value_from_system_env(name):
     """Get the value for a name from system environment variables"""
