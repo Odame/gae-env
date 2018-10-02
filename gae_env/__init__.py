@@ -17,8 +17,8 @@ __all__ = ['get', 'set_value', 'ValueNotSetError']
 
 
 def get(
-        name, raise_value_not_set_error=True,
-        gae_namespace=DEFAULT_GAE_NAMESPACE, converter_class=str
+        name, raise_value_not_set_error=True, gae_namespace=DEFAULT_GAE_NAMESPACE,
+        converter_class=str, return_none_for_not_set_value=True
 ):
     # region docstring
     """ Get the value stored at a key.
@@ -39,6 +39,7 @@ def get(
             fetch it from this namespace (default: {''})
         converter_class {type} -- The type to convert the value to, before returning.
             Supported types include, str, int, float
+        return_none_for_not_set_value {bool} -- If True, returns None if the value of a key/name is NOT_SET_VALUE
 
     Returns:
         {str|int|float} -- The value stored for the key/name.
@@ -56,9 +57,9 @@ def get(
         set_value(name, NOT_SET_VALUE)  # initialise it to a dummy value in Cloud Datastore
         value = NOT_SET_VALUE
 
-    if raise_value_not_set_error and value == NOT_SET_VALUE:
+    if raise_value_not_set_error and (value == NOT_SET_VALUE):
         raise ValueNotSetError(key=name)
-    elif value == NOT_SET_VALUE:
+    elif return_none_for_not_set_value and (value == NOT_SET_VALUE):
         return None  # return None, if no value had been set
     else:
         return converter_class(value)
