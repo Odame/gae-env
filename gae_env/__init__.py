@@ -42,8 +42,9 @@ def get(
         return_none_for_not_set_value {bool} -- If True, returns None if the value of a key/name is NOT_SET_VALUE
 
     Returns:
-        {str|int|float} -- The value stored for the key/name.
+        {str|int|float|None} -- The value stored for the key/name.
             The type of the value depends on :converter_class:
+            However, if :return_none_for_not_set_value: is True, None will be returned for :name:s with no set value
     
     Raises:
         ValueNotSetError -- If kwarg :raise_value_not_set_error: is True and no value has been set for :name:/key
