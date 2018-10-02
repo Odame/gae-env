@@ -44,6 +44,10 @@ def get(
     Returns:
         {str|int|float} -- The value stored for the key/name.
             The type of the value depends on :converter_class:
+    
+    Raises:
+        ValueNotSetError -- If kwarg :raise_value_not_set_error: is True and no value has been set for :name:/key
+        ValueError -- If the stored value is not of type :converter_class:
     """
     # endregion
 
@@ -68,6 +72,7 @@ def get(
 def set_value(name, value, gae_namespace=DEFAULT_GAE_NAMESPACE):
     # type: (str, str) -> None
     """ Set a value for a name/key.
+    For any value, it's string representation is what is stored
 
     NB: This sets the value in Cloud Datastore only!
     """
