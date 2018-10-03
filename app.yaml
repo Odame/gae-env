@@ -1,7 +1,3 @@
-# This file specifies your Python application's runtime configuration
-# including URL routing, versions, static file uploads, etc. See
-# https://developers.google.com/appengine/docs/python/config/appconfig
-# for details.
 
 # using cloud.google.com/console use the "project id" for your application
 # id.
