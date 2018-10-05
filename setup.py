@@ -20,7 +20,7 @@ setup(
         'Topic :: Software Development :: Libraries',
     ],
     keywords='google appengine env var environment variable cloud datastore',
-    # url='http://github.com/Odame/gae_env',
+    url='https://github.com/Odame/gae-env',
     author='Prince Odame',
     author_email='opodame@gmail.com',
     license='MIT',
