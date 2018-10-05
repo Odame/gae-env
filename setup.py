@@ -9,7 +9,7 @@ def readme():
 
 setup(
     name='gae_env',
-    version='0.1.0',
+    version='0.1.1',
     description='Google Appengine environment variables stored in Cloud Datastore (and/or system environment variables)',
     long_description=readme(),
     long_description_content_type="text/markdown",
