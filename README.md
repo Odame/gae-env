@@ -82,7 +82,11 @@ But this also means it requires the context of a Google Appengine runtime in ord
 
 
 ## Testing
-This project uses [`nose`][3], [`nosegae`][4] and [`coverage`][5] for testing. You must have these installed
+This project uses [`nose`][3], [`nosegae`][4] and [`coverage`][5] for testing.
+
+You must have these installed:
+
+    pip install -r test_requirements.txt
 
 In addition, you must have gcloud sdk installed, with google appengine enabled.
 
