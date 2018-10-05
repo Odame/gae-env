@@ -18,7 +18,6 @@ If these values are stored in code, you will have to run different code in devel
 `gae_env` reads environment variables from [Cloud Datastore][7] (and/or system environment variables). This way, it becomes more convenient to edit variables in the [Developer's Console][2]
 
 ## Usage
---------------------
 
 ```python
 # coding: utf-8
@@ -76,7 +75,6 @@ gae_env.set_value(name=key_foo, value=value_bar)
 
 
 ## Dependencies
---------------------
 
 `gae_env` uses the `ndb` library which uses [MemCache][6] and [Cloud Datastore][7] under the hood, so it's fast.
 
@@ -84,7 +82,6 @@ But this also means it requires the context of a Google Appengine runtime in ord
 
 
 ## Testing
---------------------
 This project uses [`nose`][3], [`nosegae`][4] and [`coverage`][5] for testing. You must have these installed
 
 In addition, you must have gcloud sdk installed, with google appengine enabled.
@@ -96,7 +93,6 @@ Run:
 
 
 ## Contributing
----------------------
 
 1. Fork it (<https://github.com/Odame/gae-env/fork>)
 2. Create your feature branch (`git checkout -b feature/fooBar`)
