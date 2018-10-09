@@ -65,13 +65,25 @@ gae_env.set_value(name=key_foo, value=value_bar)
 
 **How to set Datastore values in the App Engine console:**
 
-- Go to the [console][2].
+1. Go to the [console][2].
 
-- Select your project at the top of the page if it's not already selected.
+2. Select your project at the top of the page if it's not already selected.
 
-- In the Kind dropdown box, select GaeEnvSettings.
+3. In the Kind dropdown box, select `GaeEnvSettings`.
 
-- Your keys will show up. For those where an exception was raised, they will all have the value `__NOT_SET__`. Click each one and set its value.
+4. Your keys will show up. For those where an exception was raised, they will all have the value `__NOT_SET__`. Click each one and set its value.
+
+**What if I am in development?**
+
+-  Using the local admin server. This is usually started on the url http://localhost:8000
+    1. In the admin server page, go to the *Datastore Viewer*
+    2. In the EntityKind dropdown box, select `GaeEnvSettings`.
+    3. Your keys will show up. For those where an exception was raised, they will all have the value `__NOT_SET__`. Click each one and set its value.
+
+-  Alternatively, you can pass environment variables as arguments to `dev_appserver.py`.
+    - The argument `--env_var=...` can be used to specify the environment variables to use when running the local development server.
+Each env_var argument is in the format of *`key=value`*, and you can define multiple envrionment variables.
+For example: `--env_var=KEY_1=val1 --env_var=KEY_2=val2`
 
 
 ## Dependencies
